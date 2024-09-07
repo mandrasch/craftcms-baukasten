@@ -49,10 +49,18 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
 
 - [ ] TODO: I needed to run `ddev craft up`, db dump not yet updated? Exception 'yii\web\HttpException' with message 'You need to be on at least Blitz 4.11.1 before you can update to Blitz 5.7.1.'
 
-7. That's it. The login credentials are: `superuser:superuser`, open the login site via:
+8. Create an empty file to run husky pre-commit checks via DDEV:
+
+    ```sh
+    ddev exec 'touch .husky-ddev'
+    ```
+
+7. That's it! Open the login site via:
    ```sh
    ddev launch admin/
    ```
+
+    The login credentials are: `superuser:superuser`.
 
 ### Regular development
 

@@ -1,19 +1,10 @@
 #!/bin/sh
 
-# TODO: This check only works if user has no DDEV installed at all, only Valet. A file like `.husky-ddev` would be better and easier to check and switch
-ddev -v
-if output="$(ddev -v)"
-then
-    echo "Detected DDEV, executing ddev npm run lint ..."
+# Check if .husky-ddev file exists to determine whether to use DDEV
+if [ -f ".husky-ddev" ]; then
+    echo "Detected .husky-ddev file, executing ddev npm run lint ..."
     ddev exec 'npm run lint'
-
 else
-    echo "We run npm locally, no DDEV detected ..."
     . "$(dirname "$0")/_/husky.sh"
     npm run lint
-
 fi
-
-# If this script does not work for you in Valet, just use the previous default:
-# . "$(dirname "$0")/_/husky.sh"
-# npm run lint
