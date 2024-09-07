@@ -72,13 +72,14 @@ Further options:
 
 - `ddev craft ...` - Execute craft CLI commands  
 - `ddev sequelace` - Inspect your database with SequelAce (or similiar tools). 
-- `ddev ssh` - Jump into the web container
 - `ddev import-db --file=dump.sql.gz` - Import and export databases, see [DDEV backups](https://ddev.com/blog/ddev-backups/).
 - `ddev restart`- Restart projects
 - `ddev stop` - Stop your projects, or stop all projects with `ddev poweroff`.  
 - `ddev pull ...` - There is also the possibility of writing pull scripts to pull in your latest live database and/or uploaded files ([example](https://github.com/mandrasch/ddev-craftcms-vite/blob/main/.ddev/providers/production.yaml))
 - `ddev describe` - Check all project settings
+- `ddev ssh` - Jump into the web container
 - `ddev list` - List all projects 
+
 - You can also add [custom commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/)
 
 There are DDEV plugins available for [VSCode](https://marketplace.visualstudio.com/items?itemName=biati.ddev-manager) as well as [PhpStorm](https://plugins.jetbrains.com/plugin/18813-ddev-integration).
