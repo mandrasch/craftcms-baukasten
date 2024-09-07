@@ -37,10 +37,10 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
 
 5. Install the NodeJS dependencies:
    ```sh
-   ddev npm install --ignore-scripts --legacy-peer-deps
+   ddev npm install
    ```
 
-- [ ] TODO: This error occurs on M1 Mac with Puppeteer - https://blog.pt1602.de/docker/m1-ddev-chromium-npm/, fixable via https://github.com/ddev/ddev-contrib/blob/master/recipes/puppeteer-headless-chrome-support/README.md?
+- [ ] TODO: This error occurs on M1 Mac with Puppeteer - https://blog.pt1602.de/docker/m1-ddev-chromium-npm/, fixable via https://github.com/ddev/ddev-contrib/blob/master/recipes/puppeteer-headless-chrome-support/README.md?, We currently have 
 
 
 6. Import the example database
@@ -75,3 +75,8 @@ Further options:
 - DDEV (Docker)
 - https://github.com/ddev/ddev-redis
 - https://github.com/ddev/ddev-redis-commander
+
+## Further TODOs
+
+- [ ] Cypress, pupeteer and DDEV - see https://github.com/ddev/ddev-contrib/pull/196 / for now we used `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true` in .ddev/config.yaml. 
+- [ ] husky --> needs a better switch between valet and ddev ... 
