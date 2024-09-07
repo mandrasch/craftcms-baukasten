@@ -8,7 +8,7 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
 
 🚧 Status: Work in progress 🚧
 
-## Local Development
+## Local Development - README for DDEV
 
 - Requirements: [Docker runtime](https://ddev.readthedocs.io/en/stable/users/install/docker-installation/) and [DDEV](https://ddev.readthedocs.io/en/stable/users/install/ddev-installation/)
 - PHP, MySQL and NodeJS version configuration: `.ddev/config.yaml`
