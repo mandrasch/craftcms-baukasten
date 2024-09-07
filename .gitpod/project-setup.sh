@@ -17,9 +17,12 @@ export DDEV_NONINTERACTIVE=true
 # important, copy env first since baukasten has some special env vars
 ddev exec 'cp .env.ddev.example .env'
 
+# start project
 ddev start -y
+
+# install deps
 ddev composer install
-# install without peer-deeps because of puppeteer (https://blog.pt1602.de/docker/m1-ddev-chromium-npm/)
-ddev npm install --ignore-scripts --legacy-peer-deps
+ddev npm install
+
 # import dump
 ddev exec 'cp seed_db.gz seed_db.sql.gz' && ddev import-db --file=seed_db.sql.gz && ddev exec 'rm seed_db.sql.gz'

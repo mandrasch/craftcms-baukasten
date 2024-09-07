@@ -12,6 +12,7 @@ database:
 use_dns_when_possible: true
 composer_version: "2"
 web_environment:
+    - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
     - GITPOD_WORKSPACE_URL
     - CODESPACES
     - CODESPACE_NAME
