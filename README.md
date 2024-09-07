@@ -20,9 +20,9 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
    git clone git@github.com:mandrasch/craftcms-baukasten-ddev.git craftcms-baukasten-ddev && cd craftcms-baukasten-ddev
    ```
 
-2. Import: Copy `.env.ddev.example` to `.env`, Baukasten has some special env vars which can not set automatically by DDEV:
+2. Important: Copy `.env.ddev.example` to `.env`, Baukasten has some special env vars which can not set automatically by DDEV:
    ```sh
-   ddev exec 'cp .env.ddev.example .env'
+   cp .env.ddev.example .env
    ```
 
 2. Start the ddev project
@@ -77,6 +77,9 @@ Further options:
 ## Further TODOs
 
 - [ ] Cypress, pupeteer and DDEV - see https://github.com/ddev/ddev-contrib/pull/196 / for now we used `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true` in .ddev/config.yaml. 
+
+- [ ] Vite build fails because of critical css as well?
+
 - [ ] husky --> needs a better switch between valet and ddev, not working yet ... 
 
 ```

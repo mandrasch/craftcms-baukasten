@@ -15,7 +15,7 @@ cp .gitpod/templates/docker-compose.vite-workaround.yaml .ddev/.
 export DDEV_NONINTERACTIVE=true
 
 # important, copy env first since baukasten has some special env vars
-ddev exec 'cp .env.ddev.example .env'
+cp .env.ddev.example .env
 
 # start project
 ddev start -y
