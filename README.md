@@ -1,118 +1,77 @@
 ![Image CraftCMS Baukasten](CraftCMS-Baukasten.png)
 
 # CraftCMS Baukasten
-Heavily opinionated starter kit for CraftCMS Projects.
 
-## What's recommended
-- Laravel Valet (https://laravel.com/docs/8.x/valet)
-- PHP 8.0
-- MySQL 8 / MariaDB
-- optional: Redis `brew install redis`
+Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craftcms-baukasten), heavily opinionated starter kit for CraftCMS Projects. Preparation for PR to add DDEV, Gitpod and GitHub Codespaces Support.
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/mandrasch/craftcms-baukasten-ddev/)
 
-## Configs
-- Duplicate the `.env.example` file as `.env` and do your settings
+🚧 Status: Work in progress 🚧
 
+## Local Development
 
-## Database
-Use the `seed_db.gz` as starting point. Create a new database with the settings from your `.env` file and import the `seed_db.gz` into it. The login credentials are: `superuser:superuser`
+- Requirements: [Docker runtime](https://ddev.readthedocs.io/en/stable/users/install/docker-installation/) and [DDEV](https://ddev.readthedocs.io/en/stable/users/install/ddev-installation/)
+- PHP, MySQL and NodeJS configuration: `.ddev/config.yaml`
 
+### First time setup
 
-## Before you start
-Go to `./` and do this: `valet link craftcms-baukasten` to create a domain like `craftcms-baukasten.test` (Info: Use the domain you used also in the `.env file`)
+1. Clone the project repository to your system.
+   ```sh
+   git clone git@github.com:mandrasch/craftcms-baukasten-ddev.git craftcms-baukasten-ddev && cd craftcms-baukasten-ddev
+   ```
 
+2. Import: Copy `.env.ddev.example` to `.env`, Baukasten has some special env vars which can not set automatically by DDEV:
+  ```sh
+   ddev exec 'cp .env.ddev.example .env'
+   ```
 
-## Development
-- `redis-server --daemonize yes` it's totally optional
-- `npm run dev` start local dev server
-- `npm run upgrade-interactive` To get an interactive GUI to update NPM Packages
-- `npm run twc` creates a `tailwind.app.css` file in `./src/css/`
+2. Start the ddev project
+  ```sh
+  ddev start
+  ```
 
-## How to use static assets with Vite
-Assets must be in `src/public/` to be copied to `web/dist` folder.
-```twig
-<img class="w-12 h-12" src="{{ craft.vite.asset('images/svg/logo.svg', true) }}" alt="">
+4. Install the Composer dependencies:
+   ```sh
+   ddev composer install
+   ```
 
-{% set asset = craft.vite.asset('images/svg/logo.svg', true) %}
-{{ craft.vite.inline(asset) }}
-```
+5. Install the NodeJS dependencies:
+   ```sh
+   ddev npm install --ignore-scripts --legacy-peer-deps
+   ```
 
-
-## Whats inside?
-### Some Basic Fields:
-- `Asset: Alt Text (Plain Text)`: Alt text per asset
-- `Asset: Caption (Plain Text)`: Caption per asset
-- `Asset: Source (Plain Text)`: Source per asset
-- `Asset: Source Url (URL)`: Source Url per asset
-- `Asset: Title (Plain Text)`: Title per asset
-- `Builder: Content (Matrix)`: Content Builder to create custom entry content
-  - `Section`: Create blocks of content
-  - `Text`: Create Rich Text Content
-  - `Text : Floating Image`: Create rich text content with a floating image
-  - `Quote`: Create Quotes
-  - `Image`: Create a image
-  - `Image Grid`: Create a image grid
-  - `Image Grid Calculated`: Create a image grid with calculated sizes
-  - `Image Gallery`: Create a image gallery
-  - `Youtube Video`: Create a youtube embed
-  - `Divider`: Create a divider
-  - `Spacer`: Create a spacer
-- `Entry: Custom Title (Plain Text)`: Overwrite the normal title (more declarative)
-- `Entry: Image (Assets)`: The entry image is used for SEO images and if the entry is linked in a card where an image is shown. 
-- `Entry: SEO (SEO Settings)`: Custom SEO Settings on entry level
-- `Entry: Short Description (Plain Text)`: Used for SEO or also for linked entries somewhere
-- `Text Advanced (Redactor)`: Advanced Rich Text experience
-- `Text Basic (Redactor)`: Basic Rich Text experience
+- [ ] TODO: This error occurs on M1 Mac with Puppeteer - https://blog.pt1602.de/docker/m1-ddev-chromium-npm/, fixable via https://github.com/ddev/ddev-contrib/blob/master/recipes/puppeteer-headless-chrome-support/README.md?
 
 
-### Some Sections:
-- `Home (Single)`: This is the root of your webpage
-- `News (Channel)`: A channel to create news
-  - `Content Builder (Entry Type)`: Entry type for news with a content builder
-- `Pages (Structure)`: A structure to create structured pages for your webpage
-  - `Content Builder (Entry Type)`: Entry type for pages with a content builder
-  - `Overview News (Entry Type)`: Entry type for the news overview page
-- `Error Pages (Channel)`: To create maintainable error pages like 404
+6. Import the example database
+  ```sh
+  ddev exec 'cp seed_db.gz seed_db.sql.gz' && ddev import-db --file=seed_db.sql.gz && ddev exec 'rm seed_db.sql.gz'
+  ```
 
+- [ ] TODO: I needed to run `ddev craft up`, db dump not yet updated?
+- [ ] Exception 'yii\web\HttpException' with message 'You need to be on at least Blitz 4.11.1 before you can update to Blitz 5.7.1.'
 
-### Some Volumes:
-- `Files`: Where files like pdf etc. lives
-- `Images`: Where our content images lives
-- `Template Images`: Where our template images lives
-- `Users`: Where our user images lives
+7. That's it. The login credentials are: `superuser:superuser`, open the login site via:
+  ```sh
+  ddev launch admin/
+  ```
 
+### Regular development
 
-### Some plugins: (WIP cause CraftCMS 4 missing Plugins)
-- `Blitz (paid)`: Blitz provides intelligent static page caching for creating lightning-fast sites with Craft.
-- `Blitz Recommendations (free)`: Adds a utility that provides templating performance recommendations.
-- `CP Clear Cache (free)`: Less clickin’ to get clearin’
-- `CP Field Inspect (free)`: Inspect field handles and easily edit field and element source settings
-- `Control Panel CSS (free)`: Add custom CSS to your Control Panel. 
-- `Dumper (free)`: Bringing larapack/dd to Craft 3
-- `Elements Panel (free)`: Adds an Elements and an Eager-Loading panel to the debug toolbar.
-- `Empty Coalesce (free)`: Empty Coalesce adds the ??? operator to Twig that will return the first thing that is defined, not null, and not empty.
-- `Formie (paid)`: Formie is a Craft CMS plugin for creating user-friendly forms that your content editors will love.
-- `Imager X (paid)`: Ninja powered image transforms.
-- `Minify (free)`: A simple plugin that allows you to minify blocks of HTML, CSS, and JS inline in Craft CMS templates.
-- `Navigation (paid)`: A Craft CMS plugin to create navigation menus for your site.
-- `Redactor (free)`: Edit rich text content in Craft CMS using Redactor by Imperavi.
-- `SEOmatic (paid)`: SEOmatic facilitates modern SEO best practices & implementation for Craft CMS 3. It is a turnkey SEO system that is comprehensive, powerful, and flexible.
-- `Sprig (free)`: A reactive Twig component framework for Craft.
-- `Super Table (free)`: Super-charge your Craft workflow with Super Table. Use it to group fields together or build complex Matrix-in-Matrix solutions.
-- `Typed link field (free)`: A Craft field type for selecting links
-- `Vite (free)`: Allows the use of the Vite.js next generation frontend tooling with Craft CMS
+Run `ddev start`, open site via `ddev launch` and run `ddev npm run dev` to get started.
 
+Further options:
 
-### Why
-I have developed several CraftCMS projects the last few years. For me, the setup and certain basics are what tend to take time away from me at the beginning of the project.
+- Execute craft CLI commands via `ddev craft`
+- Inspect your database with `ddev sequelace` (or similiar tools). You can jump into the web container with `ddev ssh`. 
+- Import and export databases via `ddev import-db --file=dump.sql.gz` or use snapshots, see [DDEV backups](https://ddev.com/blog/ddev-backups/) for more information.
+- If you change your project configuration in `.ddev/config.yaml`, use `ddev restart` to apply changes. Stop your projects with `ddev stop`, or all projects with `ddev poweroff`.  
+- There is also the possibility of writing pull scripts, which are executed with `ddev pull` ([example](https://github.com/mandrasch/ddev-craftcms-vite/blob/main/.ddev/providers/production.yaml)) - to pull in your latest live database and/or uploaded files.
+- Check all project settings with `ddev describe`, list all projects with `ddev list`. You can also add [custom commands](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/).
+- There are DDEV plugins available for [VSCode](https://marketplace.visualstudio.com/items?itemName=biati.ddev-manager) as well as [PhpStorm](https://plugins.jetbrains.com/plugin/18813-ddev-integration).
 
-For this reason there is the "Baukasten" to get started faster in new projects. It's a collection of good practices I have learned and adopted from past projects and from other people. It's heavily opinionated, but feel free to fork and modify it for your own needs.
+## Stack
 
----
-
-### Have to say thank you
-- [nystudio107](https://github.com/nystudio107/)
-- [craftcms](https://craftcms.com/)
-- [webdevs](https://webdevs.xyz/)
-- [putyourlightson](https://github.com/putyourlightson/)
-- [verbb](https://github.com/verbb/) 
+- DDEV (Docker)
+- https://github.com/ddev/ddev-redis
+- https://github.com/ddev/ddev-redis-commander
