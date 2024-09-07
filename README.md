@@ -21,14 +21,14 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
    ```
 
 2. Import: Copy `.env.ddev.example` to `.env`, Baukasten has some special env vars which can not set automatically by DDEV:
-  ```sh
+   ```sh
    ddev exec 'cp .env.ddev.example .env'
    ```
 
 2. Start the ddev project
-  ```sh
-  ddev start
-  ```
+   ```sh
+   ddev start
+   ```
 
 4. Install the Composer dependencies:
    ```sh
@@ -40,21 +40,19 @@ Fork of [davidhellmann/craftcms-baukasten](https://github.com/davidhellmann/craf
    ddev npm install
    ```
 
-- [ ] TODO: This error occurs on M1 Mac with Puppeteer - https://blog.pt1602.de/docker/m1-ddev-chromium-npm/, fixable via https://github.com/ddev/ddev-contrib/blob/master/recipes/puppeteer-headless-chrome-support/README.md?, We currently have 
-
+- [ ] TODO: This error occurs on M1 Mac with Puppeteer - https://blog.pt1602.de/docker/m1-ddev-chromium-npm/, fixable via https://github.com/ddev/ddev-contrib/blob/master/recipes/puppeteer-headless-chrome-support/README.md?, We currently have disabled chromium download via `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD` in `.ddev/config.yaml`
 
 6. Import the example database
-  ```sh
-  ddev exec 'cp seed_db.gz seed_db.sql.gz' && ddev import-db --file=seed_db.sql.gz && ddev exec 'rm seed_db.sql.gz'
-  ```
+    ```sh
+    ddev exec 'cp seed_db.gz seed_db.sql.gz' && ddev import-db --file=seed_db.sql.gz && ddev exec 'rm seed_db.sql.gz'
+    ```
 
-- [ ] TODO: I needed to run `ddev craft up`, db dump not yet updated?
-- [ ] Exception 'yii\web\HttpException' with message 'You need to be on at least Blitz 4.11.1 before you can update to Blitz 5.7.1.'
+- [ ] TODO: I needed to run `ddev craft up`, db dump not yet updated? Exception 'yii\web\HttpException' with message 'You need to be on at least Blitz 4.11.1 before you can update to Blitz 5.7.1.'
 
 7. That's it. The login credentials are: `superuser:superuser`, open the login site via:
-  ```sh
-  ddev launch admin/
-  ```
+   ```sh
+   ddev launch admin/
+   ```
 
 ### Regular development
 
