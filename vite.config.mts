@@ -14,6 +14,31 @@ import copy from 'rollup-plugin-copy';
 
 // https://vitejs.dev/config/
 
+// Laravel Valet
+let origin = 'http://localhost:3100';
+const port = 3100;
+
+// DDEV (local)
+if (Object.prototype.hasOwnProperty.call(process.env, 'IS_DDEV')) {
+  origin = `${process.env.DDEV_PRIMARY_URL}:${port}`;
+}
+
+// Gitpod
+if (Object.prototype.hasOwnProperty.call(process.env, 'GITPOD_WORKSPACE_URL')) {
+  origin = `${process.env.GITPOD_WORKSPACE_URL}`;
+  origin = origin.replace('https://', 'https://3100-');
+  console.log(`Gitpod detected, set origin to ${origin}`);
+}
+
+// Github Codespaces
+if (Object.prototype.hasOwnProperty.call(process.env, 'CODESPACES')) {
+  origin = `https://${process.env.CODESPACE_NAME}-${port}.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`;
+  console.log('Codespaces environment detected, setting config to ', { port, origin });
+  console.log("Please check that this can be opened via browser after you run 'ddev npm run dev':");
+  console.log(origin + '/src/js/app.ts');
+  console.log("If it can't be opened, please switch the Vite port to public in the ports tab.");
+}
+
 export default defineConfig(({ command }) => ({
   base: command === 'serve' ? '' : '/dist/',
   esbuild: {
@@ -32,6 +57,7 @@ export default defineConfig(({ command }) => ({
   },
   plugins: [
     critical({
+      // TODO: hardcoded?
       criticalUrl: 'https://stage.baukasten.io/',
       criticalBase: './web/dist/criticalcss/',
       criticalPages: [
@@ -91,11 +117,10 @@ export default defineConfig(({ command }) => ({
       '@components': path.resolve('./templates/_components'),
     },
   },
-  // Use this for Laravel Valet
   server: {
     host: '0.0.0.0',
-    origin: 'http://localhost:3100',
-    port: 3100,
+    origin,
+    port,
     strictPort: true,
   },
 }));
