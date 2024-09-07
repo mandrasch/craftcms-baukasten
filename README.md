@@ -79,4 +79,20 @@ Further options:
 ## Further TODOs
 
 - [ ] Cypress, pupeteer and DDEV - see https://github.com/ddev/ddev-contrib/pull/196 / for now we used `PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true` in .ddev/config.yaml. 
-- [ ] husky --> needs a better switch between valet and ddev ... 
+- [ ] husky --> needs a better switch between valet and ddev, not working yet ... 
+
+```
+Error: unknown command "npm" for "ddev"
+Run 'ddev --help' for usage.
+We run npm locally, no DDEV detected ...
+husky - DEPRECATED
+```
+
+```
+Please remove the following two lines from .husky/pre-commit:
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+They WILL FAIL in v10.0.0
+```
